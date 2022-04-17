@@ -1,4 +1,3 @@
-
 /**
  * Factor
  * (An environmentally relevant attribute that a company can have that can be assigned a value)
@@ -23,7 +22,7 @@ export type Factor = {
  */
 export type Score = {
   id: string;
-  value: number;  // between 0.0 and 100.0 (inclusive)
+  value: number; // between 0.0 and 100.0 (inclusive)
   description: string;
   company: Company;
   subscores?: [Score];
@@ -32,10 +31,10 @@ export type Score = {
 };
 
 export enum Sector {
-  Cloud = "Cloud",
-  Dining = "Dining",
-  Grocery = "Grocery",
-  Technology = "Technology",
+  Cloud = 'Cloud',
+  Dining = 'Dining',
+  Grocery = 'Grocery',
+  Technology = 'Technology',
 }
 
 /**
@@ -53,11 +52,11 @@ export type Company = {
 };
 
 export enum PostCategory {
-  GreenStory = "GreenStory",
-  BusinessTips = "BusinessTips",
-  LocalHighlight = "LocalHighlight",
-  OPed = "OPed",
-  Other = "Other"
+  GreenStory = 'GreenStory',
+  BusinessTips = 'BusinessTips',
+  LocalHighlight = 'LocalHighlight',
+  OPed = 'OPed',
+  Other = 'Other'
 }
 
 // For the news feed
