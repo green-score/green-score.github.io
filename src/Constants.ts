@@ -1,1 +1,3 @@
-export const TEST_DATA = true;
+const Constants = { TEST_DATA: true };
+
+export default Constants;

@@ -2,10 +2,10 @@ import { Post } from '../types';
 
 const getCompanies = () => {
 
-}
+};
 
-const getPosts = (): [Post] => {
-
+const getPosts = (): Post[] => {
+  return [];
 };
 
 export default getData = () => {
