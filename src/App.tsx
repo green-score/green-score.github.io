@@ -3,8 +3,11 @@ import { Button } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { TEST_DATA } from './Constants';
 
+type Props = {
+
+};
+
 const App: React.FC = () => {
-  const []
   return (
     <div style={{
       height: '100%',
@@ -15,7 +18,7 @@ const App: React.FC = () => {
       justifyContent: 'center',
     }}>
       <div color='black'>
-        <div color='green' className='row'>
+        <div color="green" className='row'>
           <Button>.</Button>
           <div className='column' color='purple' style={{ textAlign: 'center' }}>
             I am desperately

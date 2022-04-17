@@ -1,30 +1,103 @@
 {
-  "root": true,
   "extends": [
-    "eslint:recommended",
-    "plugin:@typescript-eslint/recommended"
+    "airbnb"
   ],
+  "env": {
+    "browser": true,
+    "commonjs": true,
+    "jest": true
+  },
   "parser": "@typescript-eslint/parser",
   "parserOptions": {
-    "project": ["./tsconfig.json"],
-    "ecmaVersion": 12,
-    "sourceType": "module"
+    "sourceType": "module",
+    "allowImportExportEverywhere": true,
+    "project": "./tsconfig.json"
+  },
+  "globals": {
+    "process": false
   },
   "plugins": [
+    "react",
+    "react-hooks",
     "@typescript-eslint"
   ],
   "rules": {
-    "@typescript-eslint/strict-boolean-expressions": [
-      2,
+    "arrow-body-style": "off",
+    "arrow-parens": ["error", "always"],
+    "camelcase": ["error", { "properties": "never", "ignoreDestructuring": true }],
+    "comma-dangle": ["warn", "always-multiline"],
+    "consistent-return": "off",
+    "indent": ["error", 2, { "SwitchCase": 1 }],
+    "no-invalid-this": "off",
+    "no-console": "error",
+    "no-unused-vars": ["error", { "argsIgnorePattern": "^_" }],
+    "function-paren-newline": ["warn", "consistent"],
+    "implicit-arrow-linebreak": ["error", "beside"],
+    "import/no-unresolved": "off",
+    "jsx-a11y/label-has-for": "off",
+    "jsx-a11y/label-has-associated-control": ["warn", {
+      "assert": "htmlFor"
+    }],
+    "lines-between-class-members": ["error", "always", { "exceptAfterSingleLine": true }],
+    "max-len": [
+      "error",
       {
-        "allowString" : false,
-        "allowNumber" : false
+        "code": 100,
+        "ignoreComments": true,
+        "ignoreTrailingComments": true,
+        "ignoreUrls": true,
+        "ignoreStrings": true,
+        "ignoreTemplateLiterals": true
       }
-    ]
+    ],
+    "no-empty": ["error", { "allowEmptyCatch": true }],
+    "no-param-reassign": ["error", { "props": false }],
+    "object-curly-newline": ["error", { "consistent": true }],
+    "operator-linebreak": ["warn", "after"],
+    "prefer-destructuring": ["error", { "object": true, "array": false }],
+    "prefer-promise-reject-errors": "off",
+
+    "react/destructuring-assignment": "off",
+    "react/jsx-filename-extension": ["warn", { "extensions": [".js", ".tsx"] }],
+    "react/jsx-one-expression-per-line": "off",
+    "react/jsx-props-no-spreading": "off",
+    "react/no-unused-prop-types": ["warn", { "skipShapeProps": true }],
+    "react/state-in-constructor": "off",
+    "react/static-property-placement": "off",
+    "react-hooks/rules-of-hooks": "error",
+
+    "@typescript-eslint/ban-types": "off",
+    "@typescript-eslint/class-name-casing": "error",
+    "@typescript-eslint/interface-name-prefix": ["error", { "prefixWithI":  "never" }],
+    "@typescript-eslint/member-ordering": "off",
+    "@typescript-eslint/no-explicit-any": "off",
+    "@typescript-eslint/no-namespace": "error",
+    "no-unused-expressions": "off",
+    "@typescript-eslint/no-unused-expressions": ["warn", { "allowShortCircuit": true, "allowTernary": true }],
+    "@typescript-eslint/no-unused-vars": ["error", { "argsIgnorePattern": "^_" }],
+    "@typescript-eslint/triple-slash-reference": "error",
+    "quotes": "off", "@typescript-eslint/quotes": ["error", "single", { "avoidEscape": true }],
+    "semi": "off", "@typescript-eslint/semi": "error",
+    "@typescript-eslint/typedef": "off",
+    "@typescript-eslint/type-annotation-spacing": "error"
   },
-  "ignorePatterns": ["src/**/*.test.ts", "src/frontend/generated/*"],
-  "env": {
-    "browser": true,
-    "es2021": true
-  }
+  "overrides": [
+    {
+      "files": ["*.tsx"],
+      "rules": {
+        "react/prop-types": "off"
+      }
+    },
+    {
+      "files": "lib/tasks/assets/**/*",
+      "rules": {
+        "import/no-extraneous-dependencies": [
+          "error",
+          {
+            "devDependencies": true
+          }
+        ]
+      }
+    }
+  ]
 }
