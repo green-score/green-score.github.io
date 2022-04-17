@@ -1,13 +1,15 @@
-import { Post } from '../types';
+// import { Post } from '../types';
 
-const getCompanies = () => {
+// const getCompanies = () => {
+//
+// };
+//
+// const getPosts = (): Post[] => {
+//   return [];
+// };
+//
+// export default getData = () => {
+//
+// };
 
-};
-
-const getPosts = (): Post[] => {
-  return [];
-};
-
-export default getData = () => {
-
-};
+export default { a: false };

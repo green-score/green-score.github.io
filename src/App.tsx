@@ -1,13 +1,8 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Button } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { TEST_DATA } from './Constants';
 
-type Props = {
-
-};
-
-const App: React.FC = () => {
+const App = () => {
   return (
     <div style={{
       height: '100%',
@@ -16,18 +11,19 @@ const App: React.FC = () => {
       alignItems: 'center',
       alignContent: 'center',
       justifyContent: 'center',
-    }}>
-      <div color='black'>
-        <div color="green" className='row'>
+    }}
+    >
+      <div color="black">
+        <div color="green" className="row">
           <Button>.</Button>
-          <div className='column' color='purple' style={{ textAlign: 'center' }}>
+          <div className="column" color="purple" style={{ textAlign: 'center' }}>
             I am desperately
           </div>
-          <div className='column' color='orange' style={{ textAlign: 'center' }}>
+          <div className="column" color="orange" style={{ textAlign: 'center' }}>
             trying to save the world with everything
           </div>
-          <div className='column' color='red' style={{ textAlign: 'center' }}>
-            I have, so let's hope it works.
+          <div className="column" color="red" style={{ textAlign: 'center' }}>
+            I have, so let&apos;s hope it works.
           </div>
         </div>
       </div>
