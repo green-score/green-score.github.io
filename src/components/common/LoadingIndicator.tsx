@@ -12,8 +12,6 @@ const intersectionObserverOptions = {
 
 const LoadingIndicator = ({ onView }: Props) => {
   const ref = useRef(null);
-  // const [ref, setRef] = React.useState(null);
-  // const bottomObserver = React.useRef<IntersectionObserver | null>(null);
 
   useEffect(() => {
     const observer = new IntersectionObserver(

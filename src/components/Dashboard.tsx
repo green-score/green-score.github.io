@@ -1,9 +1,11 @@
 import React from 'react';
 import PostFeed from './news/PostFeed';
+import SearchBar from './SearchBar';
 
 const Dashboard = () => {
   return (
-    <div>
+    <div className="dashboard">
+      <SearchBar />
       <PostFeed />
     </div>
   );

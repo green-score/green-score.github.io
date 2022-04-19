@@ -1,12 +1,14 @@
 import React from 'react';
+import SearchBar from './components/SearchBar';
+import PostFeed from './components/news/PostFeed';
 
 import './App.scss';
-import Dashboard from './components/Dashboard';
 
 const App = () => {
   return (
     <div className="app">
-      <Dashboard />
+      <SearchBar />
+      <PostFeed />
     </div>
   );
 };
