@@ -1,9 +1,10 @@
 import React from 'react';
+import PostFeed from './news/PostFeed';
 
 const Dashboard = () => {
   return (
     <div>
-      Hello
+      <PostFeed />
     </div>
   );
 };

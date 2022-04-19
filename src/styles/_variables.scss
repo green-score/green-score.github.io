@@ -1,0 +1,12 @@
+$primary-font-color: #ffffff;
+$secondary-font-color: #c3c5cd;
+$ternary-font-color: #6d6363;
+
+$primary-color: #007c0d;
+$secondary-color: #03ad7a;
+
+$background-color: #001000;
+$gradient-to: #004b06;
+$body-bg: $background-color;
+
+$primary-gradient: repeating-linear-gradient(338deg, rgba($gradient-to, 1), rgba($background-color, 1), rgba($background-color, 1), rgba($background-color, 1), rgba($gradient-to, 1) 200vh);

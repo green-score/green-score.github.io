@@ -29,8 +29,8 @@
     "consistent-return": "off",
     "indent": ["error", 2, { "SwitchCase": 1 }],
     "no-invalid-this": "off",
-    "no-console": "error",
-    "no-unused-vars": ["error", { "argsIgnorePattern": "^_" }],
+    "no-console": "warn",
+    "no-unused-vars": ["warn", { "argsIgnorePattern": "^_" }],
     "function-paren-newline": ["warn", "consistent"],
     "implicit-arrow-linebreak": ["error", "beside"],
     "import/no-unresolved": "off",
@@ -73,11 +73,11 @@
       "error",
       {
         "selector": "interface",
-        "format": ["PascalCase"],
-        "custom": {
-          "regex": "^I[A-Z]",
-          "match": true
-        }
+        "format": ["PascalCase"]
+//        "custom": {
+//          "regex": "^I[A-Z]",
+//          "match": true
+//        }
       }
     ],
     "@typescript-eslint/member-ordering": "off",
@@ -85,16 +85,18 @@
     "@typescript-eslint/no-namespace": "error",
     "no-unused-expressions": "off",
     "@typescript-eslint/no-unused-expressions": ["warn", { "allowShortCircuit": true, "allowTernary": true }],
-    "@typescript-eslint/no-unused-vars": ["error", { "argsIgnorePattern": "^_" }],
+    "@typescript-eslint/no-unused-vars": ["warn", { "argsIgnorePattern": "^_" }],
     "@typescript-eslint/triple-slash-reference": "error",
     "quotes": "off", "@typescript-eslint/quotes": ["error", "single", { "avoidEscape": true }],
     "semi": "off", "@typescript-eslint/semi": "error",
     "@typescript-eslint/typedef": "off",
-    "@typescript-eslint/type-annotation-spacing": "error"
+    "@typescript-eslint/type-annotation-spacing": "error",
+    "no-shadow": "off",
+    "@typescript-eslint/no-shadow": ["error"]
   },
   "overrides": [
     {
-      "files": ["*.tsx"],
+      "files": ["*.ts, *.tsx"],
       "rules": {
         "react/prop-types": "off"
       }

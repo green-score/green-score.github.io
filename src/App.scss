@@ -1,0 +1,39 @@
+// include customized bootstrap
+@import './styles/variables';
+
+// include all of Bootstrap
+@import 'bootstrap/scss/bootstrap';
+
+body {
+  margin: 0;
+  font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+  font-weight: 300;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  color: $primary-font-color;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+  monospace;
+}
+
+.app {
+  background: $primary-gradient;
+  height: 100%;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  align-content: center;
+  justify-content: center;
+}
+
+.post-view {
+  justify-content: center;
+  border: 5px black solid;
+  background-color: $background-color;
+}
+
+.post-preview-image {
+
+}
