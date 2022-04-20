@@ -31,16 +31,19 @@ const testPostFeed: PostPreview[] = [{
 const posts: { [id: string]: Post } = {
   1: {
     ...testPostFeed[0],
+    author: 'Leo Belyi',
     headings: [],
     sections: [],
   },
   2: {
     ...testPostFeed[1],
+    author: 'Leo Belyi',
     headings: [],
     sections: [],
   },
   3: {
     ...testPostFeed[2],
+    author: 'Leo Belyi',
     headings: [],
     sections: [],
   },

@@ -22,6 +22,7 @@ export interface PostPreview {
  * post preview, * except with more details included.
  */
 export interface Post extends PostPreview {
+  author: string;
   url?: string;
   headings?: string[];
   sections?: string[];

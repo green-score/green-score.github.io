@@ -1,0 +1,32 @@
+@import './variables';
+
+.post-feed {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  margin: 0.5rem;
+}
+
+.post-preview-container {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  width: 100%;
+  background: $secondary-color;
+  color: $primary-font-color;
+  border-radius: 1rem;
+  border: none;
+  font-weight: 200;
+  margin-bottom: 0.5rem;
+}
+
+.post-preview-thumbnail {
+  width: 100%;
+  margin: 1rem 0;
+}
+
+.post-view {
+  justify-content: center;
+  border: 5px black solid;
+  background-color: $background-color;
+}

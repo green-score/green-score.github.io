@@ -1,14 +1,41 @@
-$primary-font-color: #ffffff;
-$secondary-font-color: #c3c5cd;
-$ternary-font-color: #a2a3a5;
-$quaternary-font-color: #6d6363;
+//$primary-font-color: #ffffe5;
+//$secondary-font-color: #c3c5cd;
+//$ternary-font-color: #a2a3a5;
+//$quaternary-font-color: #6d6363;
+//
+//$primary-color: #004e0d;
+//$primary-color-darker: #002306;
+//$primary-color-background: #001003;
+//$secondary-color: #03ad7a;
+//$secondary-color-darker: #025a40;
+//$secondary-color-background: #011510;
+//
+////$background-color: #001000;
+//$background-color: $primary-color-background;
+////$gradient-to: #0cb404;
+//$gradient-to: $primary-color;
+//$body-bg: $background-color;
+//
+//$primary-gradient: repeating-linear-gradient(338deg, rgba($gradient-to, 1), rgba($background-color, 1), rgba($background-color, 1), rgba($background-color, 1), rgba($gradient-to, 1) 200vh);
+
+$primary-font-color: #000000;
+$secondary-font-color: #161d16;
+$ternary-font-color: #233423;
+$quaternary-font-color: #3d5c3d;
 
 $primary-color: #004e0d;
+$primary-color-lighter: #39ad4f;
+$primary-color-lightest: #c2fccd;
+$primary-color-background: #ebfcef;
 $secondary-color: #03ad7a;
+$secondary-color-lighter: #5dffd0;
+$secondary-color-lightest: #acf3de;
+$secondary-color-background: #e3fff8;
 
-$background-color: #001000;
+//$background-color: #001000;
+$background-color: $primary-color-background;
 //$gradient-to: #0cb404;
-$gradient-to: $primary-color;
+$gradient-to: $primary-color-lightest;
 $body-bg: $background-color;
 
 $primary-gradient: repeating-linear-gradient(338deg, rgba($gradient-to, 1), rgba($background-color, 1), rgba($background-color, 1), rgba($background-color, 1), rgba($gradient-to, 1) 200vh);
