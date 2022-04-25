@@ -1,4 +1,12 @@
-import type { Company } from './company';
+/**
+ * We will almost always only want to preview the primary score
+ * for a company. This is the only information we really need
+ * to know in order to display a score for a company.
+ */
+export interface ScorePreview {
+  id: string;
+  value: number; // between 0.0 and 100.0 (inclusive)
+}
 
 /**
  * Factor
@@ -22,12 +30,10 @@ export type Factor = {
  * - If factor is not null, it is a FactorScore
  * - If subscores aren’t empty, it is an CompositeScore
  */
-export type Score = {
-  id: string;
-  value: number; // between 0.0 and 100.0 (inclusive)
+export interface Score extends ScorePreview {
   description: string;
-  company: Company;
-  subscores?: [Score];
+  companyID: string;
+  subscores: Score[];
   factor?: Factor;
   parent?: Score;
-};
+}

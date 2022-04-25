@@ -1,4 +1,4 @@
-const TEST_DATA = false;
+const TEST_DATA = true;
 const DEBUG = true;
 const LOG = true;
 const ERR = true;

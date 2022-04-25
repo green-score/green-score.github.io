@@ -28,7 +28,7 @@ const testPostFeed: PostPreview[] = [{
   production: false,
 }];
 
-const posts: { [id: string]: Post } = {
+const post: { [id: string]: Post } = {
   1: {
     ...testPostFeed[0],
     author: 'Leo Belyi',
@@ -49,7 +49,7 @@ const posts: { [id: string]: Post } = {
   },
 };
 
-const getTestPost = (id: string): Post => posts[id];
+const getTestPost = (id: string): Post => post[id];
 
 export {
   getTestPost,

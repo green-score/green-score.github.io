@@ -1,6 +1,6 @@
 import { useLocalObservable } from 'mobx-react';
 import { Post, PostPreview } from '../types/post';
-import { fetchPosts, getPost } from '../routes/api';
+import { fetchPosts, getPost } from '../routes';
 
 export interface PostStore {
   posts: { [id: string]: Post },

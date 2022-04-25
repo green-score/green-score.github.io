@@ -1,9 +1,14 @@
 import React from 'react';
+import { CompanyPreview } from '../../types/company';
 
-const CompanyCard = () => {
+type Props = {
+  companyPreview: CompanyPreview;
+};
+
+const CompanyCard = ({ companyPreview }: Props) => {
   return (
-    <div>
-      company card
+    <div className="search-bar-result company-card">
+      { companyPreview.name }
     </div>
   );
 };

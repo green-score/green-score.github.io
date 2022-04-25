@@ -25,7 +25,7 @@ const PostFeed = observer(() => {
         return (<PostCard postPreview={post} onClick={() => store.openPost(post.id)} />);
       })}
       {store.noMorePosts || <LoadingIndicator onView={fetchPosts} />}
-      <Modal show={store.openModalPost !== null} onHide={store.closePost}>
+      <Modal className="post-modal" show={store.openModalPost !== null} onHide={store.closePost}>
         {store.openModalPost && (
           <PostView post={store.openModalPost} />
         )}

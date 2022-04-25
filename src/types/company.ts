@@ -1,4 +1,4 @@
-import type { Score } from './score';
+import type { Score, ScorePreview } from './score';
 
 /**
  * Which sector the company is a part of.
@@ -11,21 +11,25 @@ export enum CompanySector {
 }
 
 /**
- * The information that
+ * The information that is needed to display the Company on the
+ * list of search results from the Search bar.
  */
 export interface CompanyPreview {
   id: string;
   name: string;
-  description: string;
+  /** sectors that the company is a part of */
+  /** Sorted in order of relevance to the search! */
+  sectors: [CompanySector];
+  /** The score information to display */
+  scorePreview: ScorePreview;
 }
 
 /**
  *
  */
 export interface Company extends CompanyPreview {
-  /** sectors that the company is a part of */
-  sectors: [CompanySector];
-  /** Multiple scores for historical reference. */
+  description: string;
+  /** Multiple scores for historical reference. scores[0] is current score */
   /** Should each one be deeply new? or can have common subscores? */
   scores: [Score];
 }
