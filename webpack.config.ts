@@ -11,6 +11,12 @@ export default {
 
   resolve: {
     extensions: ['.ts', '.tsx', '.js', '.jsx'],
+    fallback: {
+      "buffer": require.resolve("buffer"),
+      "https": require.resolve("https"),
+      "querystring": require.resolve("querystring-es3"),
+      "url": require.resolve("url"),
+    }
   },
 
   mode: process.env.NODE_ENV || 'development',

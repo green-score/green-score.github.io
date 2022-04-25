@@ -1,10 +1,12 @@
-import { useLocalStore } from 'mobx-react';
+import { useLocalObservable } from 'mobx-react';
 import { Post, PostPreview } from '../types/post';
 import { fetchPosts, getPost } from '../routes/api';
 
 export interface PostStore {
   posts: { [id: string]: Post },
   postFeed: PostPreview[],
+  postFeedOffset: number,
+  noMorePosts: boolean,
   openModalPost: Post | null,
 
   fetchPosts: () => Promise<void>;
@@ -13,15 +15,24 @@ export interface PostStore {
 }
 
 const usePostStore = () => {
-  const store = useLocalStore<PostStore>(() => ({
+  const store = useLocalObservable<PostStore>(() => ({
     posts: {},
     postFeed: [],
+    postFeedOffset: 0,
+    noMorePosts: false,
     openModalPost: null,
 
     fetchPosts: async () => {
-      const postPreviews: PostPreview[] = await fetchPosts();
+      const { posts, offset } = await fetchPosts(store.postFeedOffset);
 
-      store.postFeed.push(...postPreviews);
+      store.postFeedOffset = offset;
+
+      if (offset === -1) {
+        // means we're done fetching i guess (or error?)
+        store.noMorePosts = true;
+      }
+
+      store.postFeed.push(...posts);
     },
 
     openPost: async (id: string) => {

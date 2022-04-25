@@ -3,13 +3,14 @@ import { Post, PostPreview } from '../types/post';
 import { Score } from '../types/score';
 import { TEST_DATA } from '../Constants';
 import { getTestPost, testPostFeed } from './offline/posts';
+import { fetchNextPosts, getPostByID, PostFetchResult } from './post';
 
-const fetchPosts = async (): Promise<PostPreview[]> => {
+const fetchPosts = async (offset: number): Promise<PostFetchResult> => {
   if (TEST_DATA) {
-    return testPostFeed;
+    return { posts: testPostFeed, offset: -1 };
   }
 
-  return [];
+  return fetchNextPosts(offset);
 };
 
 const getPost = async (id: string): Promise<Post | null> => {
@@ -17,7 +18,7 @@ const getPost = async (id: string): Promise<Post | null> => {
     return getTestPost(id);
   }
 
-  return null;
+  return getPostByID(id);
 };
 
 const fetchCompanies = async (): Promise<CompanyPreview[]> => {

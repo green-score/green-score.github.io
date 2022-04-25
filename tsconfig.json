@@ -25,5 +25,10 @@
     "noImplicitAny": true,
   },
   "include": ["src"],
-  "exclude": ["./node_modules", "./webpack.config.ts", "./babel.config.ts"], // which files to skip
+  "exclude": [ // which files to skip
+    "./node_modules",
+    "./webpack.config.ts",
+    "./babel.config.ts",
+    "./next.config.js",
+  ],
 }
