@@ -6,7 +6,7 @@ Requires you to define these variables:
 `POSTFORM_GOOGLE_SERVICE_PRIVATE_KEY` (private key of the Google).
 */
 
-export const production = process.env.NODE_ENV === 'production';
+export const PRODUCTION = process.env.NODE_ENV === 'production';
 export const SPREADSHEET_URL = 'https://docs.google.com/spreadsheets/d/1yk4RyZgIu2r8MgnvTejj0AAVNiCLRy9TQUJ1PkGcO-Q';
 export const SPREADSHEET_ID = process.env.POSTFORM_SPREADSHEET_ID;
 export const SHEET_ID = process.env.POSTFORM_SHEET_ID;

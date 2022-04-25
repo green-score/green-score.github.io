@@ -1,4 +1,3 @@
-const PRODUCTION = false;
 const TEST_DATA = false;
 const DEBUG = true;
 const LOG = true;
@@ -8,6 +7,5 @@ export {
   DEBUG,
   ERR,
   LOG,
-  PRODUCTION,
   TEST_DATA,
 };

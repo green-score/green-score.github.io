@@ -1,6 +1,6 @@
 import Papa from 'papaparse';
 import { Post, PostPreview } from '../types/post';
-import { CLIENT_EMAIL, PRIVATE_KEY, SHEET_ID, SPREADSHEET_ID, SPREADSHEET_URL } from '../Env';
+import { PRODUCTION, SPREADSHEET_URL } from '../Env';
 
 const NUM_FETCH = 5;
 const POSTS: Post[] = [];
@@ -69,7 +69,10 @@ const loadPosts = async (): Promise<Post[]> => new Promise((resolve, reject) => 
     download: true,
     header: true,
     complete: (results) => {
-      resolve(results.data.map(spreadsheetItemToPost));
+      resolve(results.data.flatMap((s, i) => {
+        const p = spreadsheetItemToPost(s, i);
+        return p.production !== PRODUCTION ? [] : p;
+      }));
     },
     error(error: Error) {
       console.error(error);
