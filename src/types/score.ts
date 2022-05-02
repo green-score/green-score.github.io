@@ -2,10 +2,23 @@
  * We will almost always only want to preview the primary score
  * for a company. This is the only information we really need
  * to know in order to display a score for a company.
+ *
+ * This will always be a Base Score.
  */
 export interface ScorePreview {
   id: string;
   value: number; // between 0.0 and 100.0 (inclusive)
+}
+
+/**
+ * This shit is like your report card.
+ */
+export enum ScoreGrade {
+  A = 'a',
+  B = 'b',
+  C = 'c',
+  D = 'd',
+  F = 'f'
 }
 
 /**
@@ -32,7 +45,7 @@ export type Factor = {
  */
 export interface Score extends ScorePreview {
   description: string;
-  companyID: string;
+  // companyID: string;
   subscores: Score[];
   factor?: Factor;
   parent?: Score;

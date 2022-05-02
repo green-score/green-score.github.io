@@ -1,10 +1,18 @@
 import React from 'react';
+import { ScorePreview } from '../../types/score';
+import { getScoreGrade } from '../../util/score';
 
-const ScoreIcon = () => {
+type Props = {
+  scorePreview: ScorePreview;
+};
+
+const ScoreIcon = ({ scorePreview }: Props) => {
+  const grade: string = getScoreGrade(scorePreview.value);
+
   return (
-    <div>
-      score icon
-    </div>
+    <button type="button" className={`score-icon ${grade}`}>
+      <h1> { grade.toUpperCase() } </h1>
+    </button>
   );
 };
 

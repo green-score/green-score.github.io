@@ -22,14 +22,23 @@ export interface CompanyPreview {
   sectors: [CompanySector];
   /** The score information to display */
   scorePreview: ScorePreview;
+  /** relevancy tags? Helps with search certainly */
+  tags?: string[];
+  /** Whether this company is a certified Green Partner */
+  partner?: boolean;
 }
 
 /**
  *
  */
 export interface Company extends CompanyPreview {
-  description: string;
+  /** Manual Desc */
+  description?: string;
   /** Multiple scores for historical reference. scores[0] is current score */
   /** Should each one be deeply new? or can have common subscores? */
-  scores: [Score];
+  /** Actually, I think that a company only needs to know the ScorePreview */
+  /** Inside the actual model, we will have it like scores: Score[] */
+  /** But in the front end we only need to know the ScorePreview in the company view */
+  // scores: [Score];
+  score: Score;
 }

@@ -1,6 +1,7 @@
 import Papa from 'papaparse';
 import { Post, PostPreview } from '../types/post';
 import { PRODUCTION, POSTFORM_SPREADSHEET_URL } from '../Env';
+import loadRows from './spreadsheet';
 
 // In the real version, these won't be stored on the front-end.
 const NUM_FETCH = 5;
@@ -64,22 +65,10 @@ const spreadsheetItemToPost = ({
   };
 };
 
-const loadPosts = async (): Promise<Post[]> => new Promise((resolve, reject) => {
-  Papa.parse<SpreadSheetPost>(`${POSTFORM_SPREADSHEET_URL}/export?format=csv`, {
-    download: true,
-    header: true,
-    complete: (results) => {
-      resolve(results.data.flatMap((s, i) => {
-        const p = spreadsheetItemToPost(s, i);
-        return p.production !== PRODUCTION ? [] : p;
-      }));
-    },
-    error(error: Error) {
-      console.error(error);
-      reject(error);
-    },
-  });
-});
+const loadPosts = async (): Promise<Post[]> => loadRows<SpreadSheetPost, Post>(
+  POSTFORM_SPREADSHEET_URL,
+  spreadsheetItemToPost,
+);
 
 const getAllPosts = async (): Promise<Post[]> => {
   if (POSTS.length === 0) {

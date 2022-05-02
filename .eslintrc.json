@@ -57,6 +57,7 @@
     "operator-linebreak": ["warn", "after"],
     "prefer-destructuring": ["error", { "object": true, "array": false }],
     "prefer-promise-reject-errors": "off",
+    "import/prefer-default-export": "warn",
 
     "react/function-component-definition": "off",
     "react/destructuring-assignment": "off",

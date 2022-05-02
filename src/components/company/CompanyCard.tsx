@@ -7,8 +7,8 @@ type Props = {
 
 const CompanyCard = ({ companyPreview }: Props) => {
   return (
-    <div className="search-bar-result company-card">
-      { companyPreview.name }
+    <div className="company-card">
+      <h1> { companyPreview.name } </h1>
     </div>
   );
 };

@@ -31,17 +31,17 @@ const company: { [id: string]: Company } = {
   1: {
     ...testCompanyResults[0],
     description: 'test description',
-    scores: [getTestScore('1')],
+    score: getTestScore('1'),
   },
   2: {
     ...testCompanyResults[1],
     description: 'test description',
-    scores: [getTestScore('2')],
+    score: getTestScore('2'),
   },
   3: {
     ...testCompanyResults[2],
     description: 'test description',
-    scores: [getTestScore('3')],
+    score: getTestScore('3'),
   },
 };
 

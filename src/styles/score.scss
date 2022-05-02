@@ -1,0 +1,26 @@
+@import './variables';
+
+.score-icon {
+  aspect-ratio: 1;
+  //width: 2rem;
+  //height: 2rem;
+  border-radius: 2rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.score-icon.a {
+  background: $grade-color-a;
+}
+.score-icon.b {
+  background: $grade-color-b;
+}
+.score-icon.c {
+  background: $grade-color-c;
+}
+.score-icon.d {
+  background: $grade-color-d;
+}
+.score-icon.f {
+  background: $grade-color-f;
+}

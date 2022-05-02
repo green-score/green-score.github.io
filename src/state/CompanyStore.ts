@@ -11,6 +11,7 @@ export interface CompanyStore {
   openModalCompany: Company | null,
 
   fetchCompanies: (term: string) => Promise<void>;
+  clearResults: () => Promise<void>;
   openCompany: (id: string) => Promise<void>;
   closeCompany: () => void;
 }
@@ -35,6 +36,11 @@ const useCompanyStore = () => {
       }
 
       store.searchResults.push(...companies);
+    },
+
+    clearResults: async () => {
+      store.openModalCompany = null;
+      store.searchResults = [];
     },
 
     openCompany: async (id: string) => {
