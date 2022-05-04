@@ -51,6 +51,7 @@
         "ignoreTemplateLiterals": true
       }
     ],
+    "no-plusplus": "off",
     "no-empty": ["error", { "allowEmptyCatch": true }],
     "no-param-reassign": ["error", { "props": false }],
     "object-curly-newline": ["error", { "consistent": true }],

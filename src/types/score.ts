@@ -14,12 +14,16 @@ export interface ScorePreview {
  * This shit is like your report card.
  */
 export enum ScoreGrade {
-  A = 'a',
-  B = 'b',
-  C = 'c',
-  D = 'd',
-  F = 'f'
+  A = 'A',
+  B = 'B',
+  C = 'C',
+  D = 'D',
+  F = 'F'
 }
+
+export type ScoreVersion = {
+  value: ScoreGrade;
+};
 
 /**
  * Factor
@@ -31,9 +35,10 @@ export type Factor = {
   id: string;
   name: string;
   description: string;
-  minValue?: number;
-  maxValue?: number;
-  discrete: boolean;
+  subfactorIDs: string[];
+  // TODO // minValue?: number;
+  // TODO // maxValue?: number;
+  // TODO // discrete: boolean;
 };
 
 /**
@@ -44,9 +49,21 @@ export type Factor = {
  * - If subscores aren’t empty, it is an CompositeScore
  */
 export interface Score extends ScorePreview {
+  key: string;
   description: string;
   // companyID: string;
-  subscores: Score[];
-  factor?: Factor;
-  parent?: Score;
+  // TODO subscores: Score[];
+  // TODO factor?: Factor;
+  // TODO parent?: Score;
 }
+
+/**
+ * This represents the full JSON object to show the
+ */
+export type ScoreCascade = {
+  name: string;
+  factorDescription: string;
+  scoreDescription: string;
+  value: number;
+  subscores: ScoreCascade[];
+};

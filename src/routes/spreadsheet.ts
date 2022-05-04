@@ -2,10 +2,50 @@ import Papa from 'papaparse';
 import { PRODUCTION } from '../Env';
 import { parsedIsAfter } from '../util/time';
 
-type SpreadsheetType = {
+interface SpreadsheetType {
   production: string;
   live: string;
-};
+}
+
+export interface SpreadSheetPost extends SpreadsheetType {
+  Timestamp: string;
+  category: string;
+  author: string;
+  title: string;
+  description: string;
+  thumbnail: string;
+  heading1: string;
+  body1: string;
+  heading2: string;
+  body2: string;
+  heading3: string;
+  body3: string;
+  url: string;
+}
+
+export interface SpreadsheetCompany extends SpreadsheetType {
+  name: string;
+  sectors: string;
+  scoreValueID: string;
+  description: string;
+  factorID: string;
+}
+
+export interface SpreadsheetScoreValue extends SpreadsheetType {
+  value: string;
+}
+
+export interface SpreadsheetFactor extends SpreadsheetType {
+  name: string;
+  description: string;
+  subfactorIDs: string;
+}
+
+export interface SpreadsheetScore extends SpreadsheetType {
+  key: string;
+  value: string;
+  description: string;
+}
 
 /**
  * Whether we should parse the row into the object once it comes out

@@ -1,4 +1,5 @@
-import { ScoreGrade } from '../types/score';
+import { Factor, Score, ScoreCascade, ScoreGrade } from '../types/score';
+import { getFactor, getScore } from '../routes/score';
 
 /**
  * TODO: MAKE THIS BASED ON ENV VARS?
@@ -21,6 +22,35 @@ const getScoreGrade = (value: number): ScoreGrade => {
   return ScoreGrade.A;
 };
 
+const getScoreKey = (scoreVersionID: string, factorID: string): string => `${scoreVersionID}_${factorID}`;
+
+/**
+ * This is the function that retrieves the entire score cascade object
+ * from the database for us to actually display it on the front end.
+ *
+ * @param scoreVersionID The ID of the score version for the score to display.
+ * @param factorID The ID of the factor that corresponds to the score.
+ */
+const getScoreCascade = async (scoreVersionID: string, factorID: string): Promise<ScoreCascade> => {
+  const factor: Factor = await getFactor(factorID);
+  const score: Score = await getScore(getScoreKey(scoreVersionID, factorID));
+  const scoreCascade: ScoreCascade = {
+    name: factor.name,
+    value: score.value,
+    scoreDescription: score.description,
+    factorDescription: factor.description,
+    subscores: [],
+  };
+  for (let i = 0; i < factor.subfactorIDs.length; i++) {
+    scoreCascade.subscores.push(
+      // eslint-disable-next-line no-await-in-loop
+      await getScoreCascade(scoreVersionID, factor.subfactorIDs[i]),
+    );
+  }
+  return scoreCascade;
+};
+
 export {
+  getScoreCascade,
   getScoreGrade,
 };

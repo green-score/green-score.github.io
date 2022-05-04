@@ -1,46 +1,14 @@
-import Papa from 'papaparse';
 import { Post, PostPreview } from '../types/post';
-import { PRODUCTION, POSTFORM_SPREADSHEET_URL } from '../Env';
-import loadRows from './spreadsheet';
+import { POSTFORM_SPREADSHEET_URL } from '../Env';
+import loadRows, { SpreadSheetPost } from './spreadsheet';
 
 // In the real version, these won't be stored on the front-end.
 const NUM_FETCH = 5;
 const POSTS: Post[] = [];
 
-type SpreadSheetPost = {
-  Timestamp: string;
-  category: string;
-  author: string;
-  title: string;
-  description: string;
-  thumbnail: string;
-  heading1: string;
-  body1: string;
-  heading2: string;
-  body2: string;
-  heading3: string;
-  body3: string;
-  live: string;
-  production: string;
-  url: string;
-};
-
 const spreadsheetItemToPost = ({
-  Timestamp,
-  category,
-  author,
-  title,
-  description,
-  thumbnail,
-  heading1,
-  body1,
-  heading2,
-  body2,
-  heading3,
-  body3,
-  live,
-  production,
-  url,
+  category, author, title, description, thumbnail, heading1, body1,
+  heading2, body2, heading3, body3, live, production, url,
 }: SpreadSheetPost, i: number): Post => {
   return {
     id: `${i}`,
