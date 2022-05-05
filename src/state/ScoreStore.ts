@@ -27,6 +27,7 @@ const useScoreStore = () => {
       store.openScoreVersionID = scoreVersionID;
       store.openFactorID = factorID;
       store.open = true;
+      console.log('OPENED SCORE MODAL');
     },
     closeScore: () => {
       store.open = false;

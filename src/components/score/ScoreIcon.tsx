@@ -1,5 +1,6 @@
 import React from 'react';
 import { Modal } from 'react-bootstrap';
+import { observer } from 'mobx-react';
 import { ScoreVersion } from '../../types/score';
 import useScoreStore from '../../state/ScoreStore';
 // import CompanyView from '../company/CompanyView';
@@ -10,7 +11,7 @@ type Props = {
   factorID: string;
 };
 
-const ScoreIcon = ({ scorePreview, factorID }: Props) => {
+const ScoreIcon = observer(({ scorePreview, factorID }: Props) => {
   const store = useScoreStore();
 
   return (
@@ -33,6 +34,6 @@ const ScoreIcon = ({ scorePreview, factorID }: Props) => {
       </Modal>
     </>
   );
-};
+});
 
 export default ScoreIcon;
