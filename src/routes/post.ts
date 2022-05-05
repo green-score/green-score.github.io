@@ -6,17 +6,17 @@ import loadRows, { SpreadSheetPost } from './spreadsheet';
 const NUM_FETCH = 5;
 const POSTS: Post[] = [];
 
-const spreadsheetItemToPost = ({
+const spreadsheetItemToPost = async ({
   category, author, title, description, thumbnail, heading1, body1,
   heading2, body2, heading3, body3, live, production, url,
-}: SpreadSheetPost, i: number): Post => {
+}: SpreadSheetPost, i: number): Promise<Post> => {
   return {
     id: `${i}`,
     title,
     category,
     author,
     thumbnailSrc: thumbnail.replace('open', 'uc'),
-    live: new Date(live),
+    live: live === undefined ? undefined : new Date(live),
     description,
     production: production === 'yes',
     url,
@@ -45,7 +45,7 @@ const getAllPosts = async (): Promise<Post[]> => {
   return POSTS;
 };
 
-export const getPostByID = async (id: string): Promise<Post | null> => (
+export const getPost = async (id: string): Promise<Post | null> => (
   (await getAllPosts())[parseInt(id, 10)]
 );
 
@@ -54,7 +54,7 @@ export type PostFetchResult = {
   offset: number;
 };
 
-export const fetchNextPosts = async (offset: number): Promise<PostFetchResult> => {
+export const fetchPosts = async (offset: number): Promise<PostFetchResult> => {
   if (offset === -1) {
     // offset -1 should just return nothing
     return { posts: [], offset };

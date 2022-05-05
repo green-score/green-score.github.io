@@ -1,5 +1,5 @@
 import { useLocalObservable } from 'mobx-react';
-import { fetchCompanies, getCompany } from '../routes';
+import { fetchCompanyResults, getCompany } from '../routes/company';
 import { Company, CompanyPreview } from '../types/company';
 
 export interface CompanyStore {
@@ -26,16 +26,17 @@ const useCompanyStore = () => {
     openModalCompany: null,
 
     fetchCompanies: async (term: string) => {
-      const { companies, offset } = await fetchCompanies(term, store.searchResultsOffset);
+      const companies = await fetchCompanyResults(term);
 
-      store.searchResultsOffset = offset;
+      // store.searchResultsOffset = offset;
 
-      if (offset === -1) {
-        // means we're done fetching i guess (or error?)
-        store.noMoreResults = true;
-      }
+      // if (offset === -1) {
+      // means we're done fetching i guess (or error?)
+      // store.noMoreResults = true;
+      // }
 
-      store.searchResults.push(...companies);
+      // console.log(companies);
+      store.searchResults = companies.map((c) => c.item);
     },
 
     clearResults: async () => {

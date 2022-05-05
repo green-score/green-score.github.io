@@ -1,0 +1,20 @@
+[
+  {
+    "id": "0",
+    "value": "F",
+    "production": "no",
+    "live": "1998/10/05"
+  },
+  {
+    "id": "1",
+    "value": "A",
+    "production": "no",
+    "live": "1998/10/05"
+  },
+  {
+    "id": "2",
+    "value": "C",
+    "production": "no",
+    "live": "1998/10/05"
+  }
+]

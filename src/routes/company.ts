@@ -1,78 +1,70 @@
-// import { Company, CompanyPreview } from '../types/company';
-// import Papa from 'papaparse';
-// import { PRODUCTION, COMPANYFORM_SPREADSHEET_URL } from '../Env';
-// import { Score } from '../types/score';
-//
-// // In the real version, these won't be stored on the front-end.
-// const COMPANIES: Company[] = [];
-// const SCORES: { [id: number]: Score } = {};
-//
-// type SpreadSheetCompany = {
-//   Timestamp: string;
-// };
-//
-// const spreadsheetItemToCompany = ({
-//   Timestamp,
-// }: SpreadSheetCompany, i: number): Company => {
-//   return {
-//     id: `${i}`,
-//     name: '',
-//     sectors: [],
-//     description: '',
-//     scoreID: [],
-//
-//     score
-//     title,
-//     category,
-//     author,
-//     thumbnailSrc: thumbnail.replace('open', 'uc'),
-//     live: new Date(live),
-//     description,
-//     production: production === 'yes',
-//     url,
-//     headings: [
-//       heading1,
-//       heading2,
-//       heading3,
-//     ],
-//     sections: [
-//       body1,
-//       body2,
-//       body3,
-//     ],
-//   };
-// };
-//
-// const fetchAllCompanies = async () => new Promise<>((resolve, reject) => (
-//   Papa.parse<SpreadSheetCompany>(`${COMPANYFORM_SPREADSHEET_URL}/export?format=csv`, {
-//     download: true,
-//     header: true,
-//     complete: (results) => {
-//       resolve(results.data.flatMap((s, i) => {
-//         const p = spreadsheetItemToCompany(s, i);
-//         return p.production !== PRODUCTION ? [] : p;
-//       }));
-//     },
-//     error(error: Error) {
-//       console.error(error);
-//       reject(error);
-//     },
-//   });
-// ));
-//
-// const fetchCompanyResults = async (term: string) => {
-//
-// };
-//
-// export const getCompany = async (id: string) => {
-//
-// };
-//
-// export const getScore = async (id: string) => {
-//
-// };
-//
-//
+import Fuse from 'fuse.js';
+import {
+  Company,
+  CompanySector,
+  stringToCompanySector,
+} from '../types/company';
+import loadRows, { SpreadsheetCompany, strToList } from './spreadsheet';
+import { COMPANY_SPREADSHEET_URL } from '../Env';
+import { getScoreVersion } from './score';
+
+const fuseOptions = {
+  // isCaseSensitive: false,
+  // includeScore: false,
+  // shouldSort: true,
+  // includeMatches: false,
+  // findAllMatches: false,
+  // minMatchCharLength: 1,
+  // location: 0,
+  // threshold: 0.6,
+  // distance: 100,
+  // useExtendedSearch: false,
+  // ignoreLocation: false,
+  // ignoreFieldNorm: false,
+  // fieldNormWeight: 1,
+  keys: [
+    'name',
+    'sectors',
+  ],
+};
+
+let fuse: Fuse<Company> | undefined;
+const COMPANIES: { [id: string]: Company } = {};
+
+const convertSectorList = (s: string[]): CompanySector[] => s.map(stringToCompanySector);
+const convertCompany = async (s: SpreadsheetCompany, i: number): Promise<Company> => ({
+  id: `${i}`,
+  name: s.name,
+  description: s.description,
+  // TODO tags: strToList(s.tags),
+  sectors: convertSectorList(strToList(s.sectors)),
+  scoreVersion: await getScoreVersion(s.scoreVersionID),
+});
+
+const fetchAllCompanies = async () => {
+  const companies = await loadRows(COMPANY_SPREADSHEET_URL, convertCompany);
+  for (let i = 0; i < companies.length; i++) {
+    COMPANIES[companies[i].id] = companies[i];
+  }
+  return new Fuse(companies, fuseOptions);
+};
+
+export const fetchCompanyResults = async (term: string): Promise<Fuse.FuseResult<Company>[]> => {
+  if (fuse === undefined) {
+    fuse = await fetchAllCompanies();
+  }
+
+  return fuse.search(term);
+};
+
+export const getCompany = async (id: string): Promise<Company> => {
+  if (fuse === undefined) {
+    fuse = await fetchAllCompanies();
+  }
+
+  return COMPANIES[id];
+};
+
 // export const fetchNextCompanies = async (term: string, offset: number): Promise<CompanyFetchResult> => {
 //   if (offset === -1) {
 //     // offset -1 should just return nothing

@@ -1,0 +1,29 @@
+[
+  {
+    "name": "Amazon",
+    "sectors": "Cloud,Clothing",
+    "scoreVersionID": "0",
+    "description": "It's amazon, you all know it",
+    "factorID": "3",
+    "production": "no",
+    "live": "1998/10/05"
+  },
+  {
+    "name": "Good Local Company",
+    "sectors": "Dining",
+    "scoreVersionID": "1",
+    "description": "The company owner was really nice to me :)",
+    "factorID": "2",
+    "production": "no",
+    "live": "1998/10/05"
+  },
+  {
+    "name": "Other big Tech Company",
+    "sectors": "Cloud",
+    "scoreVersionID": "2",
+    "description": "Just came back from their factories in Taiwan, the suicide nets are still holding strong <3",
+    "factorID": "0",
+    "production": "no",
+    "live": "1998/10/05"
+  }
+]

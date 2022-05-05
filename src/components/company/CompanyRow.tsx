@@ -14,7 +14,7 @@ Want to show SCORE
 const CompanyRow = ({ companyPreview }: Props) => {
   return (
     <div className="company-row">
-      <ScoreIcon scorePreview={companyPreview.scorePreview} />
+      <ScoreIcon scorePreview={companyPreview.scoreVersion} />
       <h1> { companyPreview.name } </h1>
     </div>
   );

@@ -1,4 +1,4 @@
-import React, { ChangeEvent, FormEvent, MouseEvent, useState } from 'react';
+import React, { ChangeEvent, MouseEvent, useState } from 'react';
 import { debounce } from 'lodash';
 import { observer } from 'mobx-react';
 import { Modal } from 'react-bootstrap';
@@ -24,6 +24,9 @@ const SearchBar = observer(() => {
     } else {
       store.fetchCompanies(value).then(() => {
         console.log('SUCCESSFULLY LOADED SEARCH RESULTS');
+        // store.searchResults.forEach((c) => {
+        //   console.log(c.name);
+        // });
       }).catch((error) => {
         console.error('error in fetching search results...');
         console.error(error);
@@ -32,7 +35,7 @@ const SearchBar = observer(() => {
   };
 
   const onChange = (e: ChangeEvent<HTMLInputElement>) => inputChange(e.target.value);
-  const onSubmit = (e: FormEvent<HTMLInputElement>) => inputChange(e.target.searchInput.value);
+  // TODO const onSubmit = (e: FormEvent<HTMLInputElement>) => inputChange(e.target.searchInput.value);
 
   const onClick = (e: MouseEvent<HTMLButtonElement>, id: string) => {
     e.preventDefault();
@@ -45,13 +48,13 @@ const SearchBar = observer(() => {
     });
   };
 
-  const showResults = store.searchResults.length !== 0 && inputSelected;
+  const showResults = store.searchResults.length !== 0;
 
   return (
     <div
       className="search-container"
       role="search"
-      onBlur={() => setInputSelected(false)}
+      // onBlur={() => setInputSelected(false)}
     >
       <div className="search-bar">
         <input
@@ -60,8 +63,8 @@ const SearchBar = observer(() => {
           name="searchInput"
           placeholder="Search"
           onChange={debounce(onChange, SEARCH_DEBOUNCE_TIME)}
-          onSelect={() => setInputSelected(true)}
-          onSubmit={(e) => onChange(e)}
+          // onSelect={() => setInputSelected(true)}
+          // onSubmit={(e) => onChange(e)}
         />
         <i className="bi bi-search search-bar-icon" />
       </div>

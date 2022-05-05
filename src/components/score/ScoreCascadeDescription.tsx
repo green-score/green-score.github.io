@@ -12,7 +12,7 @@ const ScoreCascadeDescription = ({ scoreCascade: score }: Props) => {
       <h2>Factor: {score.name}</h2>
       <p>{score.factorDescription}</p>
       <br />
-      <h2> Score: {getScoreGrade(score.value)} ({score.value}) </h2>
+      <h2> Our Score: {getScoreGrade(score.value)} ({score.value}) </h2>
       <p>{score.scoreDescription}</p>
     </div>
   );

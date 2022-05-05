@@ -1,3 +1,6 @@
+/** TODO NEED to seriously consider what's in here */
+// 1. ScoreVersion deffs works as ScorePreview
+
 /**
  * We will almost always only want to preview the primary score
  * for a company. This is the only information we really need
@@ -5,23 +8,32 @@
  *
  * This will always be a Base Score.
  */
-export interface ScorePreview {
-  id: string;
-  value: number; // between 0.0 and 100.0 (inclusive)
-}
+// export interface ScorePreview {
+//   id: string;
+//   value: number;
+// }
 
 /**
  * This shit is like your report card.
  */
-export enum ScoreGrade {
-  A = 'A',
-  B = 'B',
-  C = 'C',
-  D = 'D',
-  F = 'F'
-}
+// export enum ScoreGrade {
+//   A = 'A',
+//   B = 'B',
+//   C = 'C',
+//   D = 'D',
+//   F = 'F'
+// }
+export type ScoreGrade = 'A' | 'B' | 'C' | 'D' | 'F';
+const ScoreGradeTypes = ['A', 'B', 'C', 'D', 'F'];
+export const stringToScoreGrade = (s: string): ScoreGrade => {
+  if (ScoreGradeTypes.includes(s)) {
+    return <ScoreGrade>s;
+  }
+  return 'F';
+};
 
 export type ScoreVersion = {
+  id: string;
   value: ScoreGrade;
 };
 
@@ -35,7 +47,7 @@ export type Factor = {
   id: string;
   name: string;
   description: string;
-  subfactorIDs: string[];
+  subfactorIDs?: string[];
   // TODO // minValue?: number;
   // TODO // maxValue?: number;
   // TODO // discrete: boolean;
@@ -48,7 +60,9 @@ export type Factor = {
  * - If factor is not null, it is a FactorScore
  * - If subscores aren’t empty, it is an CompositeScore
  */
-export interface Score extends ScorePreview {
+export interface Score {
+  id: string;
+  value: number; // between 0.0 and 100.0 (inclusive)
   key: string;
   description: string;
   // companyID: string;

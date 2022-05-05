@@ -1,14 +1,27 @@
-import type { Score, ScorePreview } from './score';
+import type { ScoreVersion } from './score';
+
+// TODO: Need to stabilize this type
+// 1. Make clear what is TODO here
+// 2. Get the distinction with the CompanyPreview better
+//      Like what do we actually need to show?
 
 /**
  * Which sector the company is a part of.
  */
-export enum CompanySector {
-  Cloud = 'Cloud',
-  Dining = 'Dining',
-  Grocery = 'Grocery',
-  Technology = 'Technology',
-}
+export type CompanySector = (
+  'Cloud' | 'Dining' | 'Grocery' | 'Technology' |
+  'Shopping' | 'Clothing' | 'Other'
+);
+const CompanySectorTypes: string[] = [
+  'Cloud', 'Dining', 'Grocery', 'Technology',
+  'Shopping', 'Clothing', 'Other',
+];
+export const stringToCompanySector = (s: string): CompanySector => {
+  if (CompanySectorTypes.includes(s)) {
+    return <CompanySector>s;
+  }
+  return 'Other';
+};
 
 /**
  * The information that is needed to display the Company on the
@@ -19,13 +32,14 @@ export interface CompanyPreview {
   name: string;
   /** sectors that the company is a part of */
   /** Sorted in order of relevance to the search! */
-  sectors: [CompanySector];
+  sectors: CompanySector[];
   /** The score information to display */
-  scorePreview: ScorePreview;
+  // scorePreview: ScorePreview;
+  scoreVersion: ScoreVersion; // this will act as the preview
   /** relevancy tags? Helps with search certainly */
-  tags?: string[];
+  // TODO tags?: string[];
   /** Whether this company is a certified Green Partner */
-  partner?: boolean;
+  // TODO partner?: boolean;
 }
 
 /**
@@ -40,5 +54,5 @@ export interface Company extends CompanyPreview {
   /** Inside the actual model, we will have it like scores: Score[] */
   /** But in the front end we only need to know the ScorePreview in the company view */
   // scores: [Score];
-  score: Score;
+  // score: Score;
 }

@@ -1,17 +1,13 @@
-export enum PostCategory {
-  GreenStory = 'GreenStory',
-  BusinessTips = 'BusinessTips',
-  LocalHighlight = 'LocalHighlight',
-  OPed = 'OPed',
-  Other = 'Other'
-}
+/** Pretty much done, check in with Nate for more Post features. */
 
-// export const getCategory = (category: string): PostCategory => {
-//   for (let c: PostCategory in PostCategory.values()) {
-//
-//   }
-//   return PostCategory.OPed
-// };
+export type PostCategory = 'GreenStory' | 'BusinessTips' | 'LocalHighlight' | 'OPed' | 'Other';
+const PostCategoryTypes = ['GreenStory', 'BusinessTips', 'LocalHighlight', 'OPed', 'Other'];
+export const stringToPostCategory = (s: string): PostCategory => {
+  if (PostCategoryTypes.includes(s)) {
+    return <PostCategory>s;
+  }
+  return 'Other';
+};
 
 // For the news feed
 export interface PostPreview {
@@ -20,7 +16,7 @@ export interface PostPreview {
   category: string;
   thumbnailSrc?: string;
   description: string; /** 150 characters max */
-  live: Date;
+  live?: Date;
   production: boolean;
 }
 

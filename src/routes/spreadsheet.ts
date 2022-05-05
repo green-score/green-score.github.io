@@ -1,10 +1,17 @@
 import Papa from 'papaparse';
-import { PRODUCTION } from '../Env';
+import {
+  COMPANY_SPREADSHEET_URL, FACTOR_SPREADSHEET_URL,
+  POSTFORM_SPREADSHEET_URL,
+  PRODUCTION, SCORE_SPREADSHEET_URL,
+  SCORE_VERSION_SPREADSHEET_URL,
+} from '../Env';
 import { parsedIsAfter } from '../util/time';
+import { TEST_DATA } from '../Constants';
+import getOfflineData from './offline';
 
-interface SpreadsheetType {
-  production: string;
-  live: string;
+export interface SpreadsheetType {
+  production?: string; // if not in row, in development
+  live?: string; // if not in row, always live
 }
 
 export interface SpreadSheetPost extends SpreadsheetType {
@@ -26,7 +33,7 @@ export interface SpreadSheetPost extends SpreadsheetType {
 export interface SpreadsheetCompany extends SpreadsheetType {
   name: string;
   sectors: string;
-  scoreValueID: string;
+  scoreVersionID: string;
   description: string;
   factorID: string;
 }
@@ -38,7 +45,7 @@ export interface SpreadsheetScoreValue extends SpreadsheetType {
 export interface SpreadsheetFactor extends SpreadsheetType {
   name: string;
   description: string;
-  subfactorIDs: string;
+  subfactorIDs?: string;
 }
 
 export interface SpreadsheetScore extends SpreadsheetType {
@@ -53,8 +60,37 @@ export interface SpreadsheetScore extends SpreadsheetType {
  * @param row
  */
 const shouldParseRow = (row: SpreadsheetType) => (
-  (row.production.toLowerCase() === 'yes') === PRODUCTION && parsedIsAfter(row.live)
+  (row.production?.toLowerCase() === 'yes') === PRODUCTION &&
+    (row.live === undefined || parsedIsAfter(row.live))
 );
+
+const downloadSpreadsheet = async <T>(
+  url: string,
+  complete: (results: T[]) => void,
+  fail: (error: Error) => void,
+) => {
+  if (TEST_DATA) {
+    const data = getOfflineData<T>(url);
+    data ? complete(data) : fail(new Error('FML'));
+  } else {
+    Papa.parse<T>(`${url}/export?format=csv`, {
+      download: true,
+      header: true,
+      complete: async (results) => {
+        // eslint-disable-next-line no-console
+        console.log(`Fetched ${results.data.length} spreadsheet rows!`);
+        complete(results.data);
+      },
+      error(error: Error) {
+        // eslint-disable-next-line no-console
+        console.error('Failed to fetch spreadsheet rows!');
+        // eslint-disable-next-line no-console
+        console.error(error);
+        fail(error);
+      },
+    });
+  }
+};
 
 /**
  * Loads the rows. First generic type T is the type of the row in
@@ -67,26 +103,30 @@ const shouldParseRow = (row: SpreadsheetType) => (
  */
 const loadRows = async <T extends SpreadsheetType, U>(
   spreadsheetURL: string,
-  convert: (row: T, i: number) => U,
+  convert: (row: T, i: number) => Promise<U>,
   shouldParse?: (row: T, i: number) => boolean,
 ): Promise<U[]> => new Promise((resolve, reject) => {
-  Papa.parse<T>(`${spreadsheetURL}/export?format=csv`, {
-    download: true,
-    header: true,
-    complete: (results) => {
-      resolve(results.data.flatMap((s, i) => {
-        if (shouldParseRow(s) && shouldParse && shouldParse(s, i)) {
-          return convert(s, i);
-        }
-        return [];
-      }));
-    },
-    error(error: Error) {
-      // eslint-disable-next-line no-console
-      console.error(error);
-      reject(error);
-    },
-  });
+  // console.log('Fetching rows!');
+  downloadSpreadsheet<T>(spreadsheetURL, async (results) => {
+    // console.log('GOT THE ROWS');
+    // console.log(results.length);
+    const rows = [];
+    for (let i = 0; i < results.length; i++) {
+      const s = results[i];
+      // console.log(`Result ${i}`);
+      // console.log(`shouldParseRow: ${shouldParseRow(s)}`);
+      // console.log(`shouldParse: ${!shouldParse || shouldParse(s, i)}`);
+      if (shouldParseRow(s) && (!shouldParse || shouldParse(s, i))) {
+        // eslint-disable-next-line no-await-in-loop
+        rows.push(await convert(s, i));
+      }
+    }
+    // console.log('Returning rows!');
+    // console.log(rows.length);
+    resolve(rows);
+  }, reject);
 });
+
+export const strToList = (s: string): string[] => s.split(/[ ,]+/);
 
 export default loadRows;

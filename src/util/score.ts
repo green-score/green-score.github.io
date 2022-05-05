@@ -8,18 +8,18 @@ import { getFactor, getScore } from '../routes/score';
  */
 const getScoreGrade = (value: number): ScoreGrade => {
   if (value < 50) {
-    return ScoreGrade.A;
+    return 'F';
   }
   if (value < 65) {
-    return ScoreGrade.B;
+    return 'D';
   }
   if (value < 75) {
-    return ScoreGrade.C;
+    return 'C';
   }
   if (value < 85) {
-    return ScoreGrade.B;
+    return 'B';
   }
-  return ScoreGrade.A;
+  return 'A';
 };
 
 const getScoreKey = (scoreVersionID: string, factorID: string): string => `${scoreVersionID}_${factorID}`;
@@ -41,11 +41,13 @@ const getScoreCascade = async (scoreVersionID: string, factorID: string): Promis
     factorDescription: factor.description,
     subscores: [],
   };
-  for (let i = 0; i < factor.subfactorIDs.length; i++) {
-    scoreCascade.subscores.push(
-      // eslint-disable-next-line no-await-in-loop
-      await getScoreCascade(scoreVersionID, factor.subfactorIDs[i]),
-    );
+  if (factor.subfactorIDs) {
+    for (let i = 0; i < factor.subfactorIDs.length; i++) {
+      scoreCascade.subscores.push(
+        // eslint-disable-next-line no-await-in-loop
+        await getScoreCascade(scoreVersionID, factor.subfactorIDs[i]),
+      );
+    }
   }
   return scoreCascade;
 };
