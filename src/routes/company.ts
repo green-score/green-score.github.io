@@ -39,6 +39,7 @@ const convertCompany = async (s: SpreadsheetCompany, i: number): Promise<Company
   // TODO tags: strToList(s.tags),
   sectors: convertSectorList(strToList(s.sectors)),
   scoreVersion: await getScoreVersion(s.scoreVersionID),
+  factorID: s.factorID,
 });
 
 const fetchAllCompanies = async () => {

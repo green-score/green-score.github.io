@@ -1,26 +1,43 @@
-// import { useLocalObservable } from 'mobx-react';
+import { useLocalObservable } from 'mobx-react';
 // import { ScoreCascade } from '../types/score';
-//
-// export interface ScoreStore {
-//   openScoreKey: string;
-//
-//   scoreVersionID: string;
-//   factorID: string;
-//   scoreCascade?: ScoreCascade; // to be computed
-//
-//   scoreCascadeCache: { [key: string]: ScoreCascade };
-// }
-//
-// const useScoreStore = () => {
-//   const store = useLocalObservable<ScoreStore>(() => ({
-//     // scoreVersionID: undefined,
-//     // factorID: undefined,
-//     scoreCascade: undefined,
-//   }));
-//
-//   return store;
-// };
-//
-// export default useScoreStore;
+
+export interface ScoreStore {
+  open: boolean;
+
+  openScoreVersionID?: string;
+  openFactorID?: string;
+  // scoreCascade?: ScoreCascade; // to be computed
+
+  // scoreCascadeCache?: { [key: string]: ScoreCascade };
+
+  openScore: (scoreVersionID: string, factorID: string) => void;
+  closeScore: () => void;
+}
+
+const useScoreStore = () => {
+  const store = useLocalObservable<ScoreStore>(() => ({
+    open: false,
+    openScoreVersionID: undefined,
+    openFactorID: undefined,
+
+    // scoreVersionID: undefined,
+    // factorID: undefined,
+    // scoreCascade: undefined,
+    openScore: (scoreVersionID: string, factorID: string) => {
+      store.openScoreVersionID = scoreVersionID;
+      store.openFactorID = factorID;
+      store.open = true;
+    },
+    closeScore: () => {
+      store.open = false;
+      store.openScoreVersionID = undefined;
+      store.openFactorID = undefined;
+    },
+  }));
+
+  return store;
+};
+
+export default useScoreStore;
 
 export {};

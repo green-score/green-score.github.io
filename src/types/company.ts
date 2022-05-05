@@ -36,6 +36,7 @@ export interface CompanyPreview {
   /** The score information to display */
   // scorePreview: ScorePreview;
   scoreVersion: ScoreVersion; // this will act as the preview
+  factorID: string;
   /** relevancy tags? Helps with search certainly */
   // TODO tags?: string[];
   /** Whether this company is a certified Green Partner */

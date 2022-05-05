@@ -67,9 +67,12 @@ export const getScore = async (key: string): Promise<Score> => {
     const scores = await loadRows(SCORE_SPREADSHEET_URL, convertScore);
     for (let i = 0; i < scores.length; i++) {
       const score = scores[i];
-      SCORES[score.id] = score;
+      SCORES[score.key] = score;
     }
   }
+
+  console.log(SCORES);
+  console.log(key);
 
   return SCORES[key];
 };

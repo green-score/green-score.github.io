@@ -4,7 +4,7 @@
     "name": "CloudSector",
     "description": "The things that go into the Cloud sector",
     "subfactorIDs": "4,5",
-    "production": "yes",
+    "production": "no",
     "live": "1998/10/05"
   },
   {
@@ -12,7 +12,7 @@
     "name": "ClothingSector",
     "description": "The things that go into clothing and whatnot",
     "subfactorIDs": "4,5,6",
-    "production": "yes",
+    "production": "no",
     "live": "1998/10/05"
   },
   {
@@ -20,7 +20,7 @@
     "name": "DiningSector",
     "description": "The things that go into the dining sector",
     "subfactorIDs": "4,5",
-    "production": "yes",
+    "production": "no",
     "live": "1998/10/05"
   },
   {
@@ -28,28 +28,28 @@
     "name": "CloudAndClothingSector",
     "description": "The combination of these two things",
     "subfactorIDs": "0,1",
-    "production": "yes",
+    "production": "no",
     "live": "1998/10/05"
   },
   {
     "id": "4",
     "name": "Transportation",
     "description": "How well they are doing with transportation policies",
-    "production": "yes",
+    "production": "no",
     "live": "1998/10/05"
   },
   {
     "id": "5",
     "name": "CarbonEmissions",
     "description": "How well they are doing with transportation policies",
-    "production": "yes",
+    "production": "no",
     "live": "1998/10/05"
   },
   {
     "id": "6",
     "name": "OilDumped",
     "description": "How much oil they've fuckin dumped into the ocean",
-    "production": "yes",
+    "production": "no",
     "live": "1998/10/05"
   }
 ]
