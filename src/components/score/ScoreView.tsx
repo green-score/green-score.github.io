@@ -14,22 +14,25 @@ const ScoreView = ({ scoreVersionID, factorID }: Props) => {
   const [selectedScoreCascade, setSelectedScoreCascade] = useState<ScoreCascade>();
 
   useEffect(() => {
-    getScoreCascade(scoreVersionID, factorID).then(setScoreCascade);
+    getScoreCascade(scoreVersionID, factorID).then((s) => {
+      setScoreCascade(s);
+      setSelectedScoreCascade(s);
+    });
   }, [scoreVersionID, factorID]);
 
   return (
     <div className="score-view">
+      <div className="score-info">
+        {selectedScoreCascade && (
+          <ScoreCascadeDescription scoreCascade={selectedScoreCascade} />
+        )}
+      </div>
       <div className="score-cascade-view">
         {scoreCascade && (
           <ScoreCascadeView
             scoreCascade={scoreCascade}
             setSelectedScoreCascade={setSelectedScoreCascade}
           />
-        )}
-      </div>
-      <div className="score-info">
-        {selectedScoreCascade && (
-          <ScoreCascadeDescription scoreCascade={selectedScoreCascade} />
         )}
       </div>
     </div>

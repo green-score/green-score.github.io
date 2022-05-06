@@ -1,8 +1,8 @@
 import React from 'react';
-import { Modal } from 'react-bootstrap';
 import { observer } from 'mobx-react';
 import { ScoreVersion } from '../../types/score';
 import useScoreStore from '../../state/ScoreStore';
+import Modal from '../common/Modal';
 // import CompanyView from '../company/CompanyView';
 import ScoreView from './ScoreView';
 
@@ -28,7 +28,7 @@ const ScoreIcon = observer(({ scorePreview, factorID }: Props) => {
         show={store.open}
         onHide={store.closeScore}
       >
-        {store.open && store.openScoreVersionID && store.openFactorID && (
+        {store.openScoreVersionID && store.openFactorID && (
           <ScoreView scoreVersionID={store.openScoreVersionID} factorID={store.openFactorID} />
         )}
       </Modal>

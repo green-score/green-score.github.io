@@ -46,7 +46,14 @@
   font-size: 1.5rem;
   color: $ternary-font-color;
   position: absolute;
-  margin-right: 1.5rem;
+  right: 1.5rem;
+  //margin-right: 1.5rem;
+}
+
+.search-clear-button {
+  color: $ternary-font-color;
+  position: absolute;
+  right: 4rem;
 }
 
 .search-bar-input::placeholder {
@@ -69,10 +76,14 @@
   border-top: 0;
   //outline-width: 1px;
   //outline-color: $secondary-color-lightest;
-  display: flex;
+  display: none;
   flex-direction: column;
   //margin-top: 8rem;
   height: 50vh;
+}
+
+.search-bar-results.showing {
+  display: flex !important;
 }
 
 .search-bar-result {

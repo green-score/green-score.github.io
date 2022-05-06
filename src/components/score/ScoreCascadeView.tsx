@@ -7,42 +7,28 @@ type Props = {
   setSelectedScoreCascade: (c: ScoreCascade) => void;
 };
 
-const SubscoreCascadeView = ({ scoreCascade, setSelectedScoreCascade }: Props) => {
-  return (
-    <div className="sub-score-cascade">
-      <button
-        type="button"
-        className="sub-score-cascade-view"
-        onClick={() => setSelectedScoreCascade(scoreCascade)}
-      >
-        <div> value={scoreCascade.value} </div>
-        { scoreCascade.name }
-      </button>
-      {scoreCascade.subscores.map((subCascade) => (
-        <SubscoreCascadeView
-          scoreCascade={subCascade}
-          setSelectedScoreCascade={setSelectedScoreCascade}
-        />
-      ))}
-    </div>
-  );
-};
-
 const ScoreCascadeView = ({ scoreCascade, setSelectedScoreCascade }: Props) => {
   return (
     <div className="score-cascade">
       <button
         type="button"
-        className="main-score-cascade-view"
+        className="score-cascade-view"
         onClick={() => setSelectedScoreCascade(scoreCascade)}
       >
+        <h1>{getScoreGrade(scoreCascade.value)}</h1>
+        {/* {' '} */}
+        {/* ({scoreCascade.value}) */}
+        {' '}
         <p>{ scoreCascade.name }</p>
-        <div>{ getScoreGrade(scoreCascade.value) }</div>
       </button>
-      <SubscoreCascadeView
-        scoreCascade={scoreCascade}
-        setSelectedScoreCascade={setSelectedScoreCascade}
-      />
+      {scoreCascade.subscores.map((subCascade) => (
+        <div key={subCascade.name} className="sub-score-cascade">
+          <ScoreCascadeView
+            scoreCascade={subCascade}
+            setSelectedScoreCascade={setSelectedScoreCascade}
+          />
+        </div>
+      ))}
     </div>
   );
 };

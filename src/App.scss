@@ -21,6 +21,10 @@ body {
   color: $primary-font-color;
 }
 
+button {
+  color: $primary-font-color;
+}
+
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
   monospace;
@@ -46,4 +50,14 @@ code {
 
 .dashboard {
   width: 100%;
+}
+
+.modal {
+  padding: 1rem;
+}
+
+.close-modal-button {
+  position: absolute;
+  top: 5px;
+  right: 5px;
 }

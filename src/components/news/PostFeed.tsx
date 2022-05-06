@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react';
-import { Modal } from 'react-bootstrap';
 import { observer } from 'mobx-react';
 import LoadingIndicator from '../common/LoadingIndicator';
 import usePostStore from '../../state/PostStore';
 import { err, log } from '../../console';
 import PostCard from './PostCard';
 import PostView from './PostView';
+import Modal from '../common/Modal';
 
 const PostFeed = observer(() => {
   const store = usePostStore();

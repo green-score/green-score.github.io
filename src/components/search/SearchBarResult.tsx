@@ -4,12 +4,12 @@ import CompanyRow from '../company/CompanyRow';
 
 type Props = {
   companyPreview: CompanyPreview;
-  onClick: (e: MouseEvent<HTMLButtonElement>) => void;
+  onClick: () => void;
 };
 
 const SearchBarResult = ({ companyPreview, onClick }: Props) => {
   return (
-    <button className="search-bar-result" type="button" onClick={onClick}>
+    <button type="button" className="search-bar-result" onTouchStart={onClick} onMouseDown={onClick}>
       <CompanyRow companyPreview={companyPreview} />
     </button>
   );
