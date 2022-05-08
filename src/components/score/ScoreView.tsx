@@ -20,6 +20,7 @@ const ScoreView = ({ scoreVersionID, factorID }: Props) => {
     getScoreCascade(scoreVersionID, factorID).then((s) => {
       setScoreCascade(s);
       setSelectedScoreCascade(s);
+      console.log(s);
       setLoading(false);
     });
   }, [scoreVersionID, factorID]);
