@@ -5,8 +5,8 @@ import {
   stringToCompanySector,
 } from '../types/company';
 import loadRows, { SpreadsheetCompany, strToList } from './spreadsheet';
-import { COMPANY_SPREADSHEET_URL } from '../Env';
 import { getScoreVersion } from './score';
+import { companySpreadsheetURL } from '../Env';
 
 const fuseOptions = {
   // isCaseSensitive: false,
@@ -43,7 +43,7 @@ const convertCompany = async (s: SpreadsheetCompany, i: number): Promise<Company
 });
 
 const fetchAllCompanies = async () => {
-  const companies = await loadRows(COMPANY_SPREADSHEET_URL, convertCompany);
+  const companies = await loadRows(companySpreadsheetURL, convertCompany);
   for (let i = 0; i < companies.length; i++) {
     COMPANIES[companies[i].id] = companies[i];
   }

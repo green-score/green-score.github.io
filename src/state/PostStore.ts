@@ -1,3 +1,4 @@
+import { action, runInAction } from 'mobx';
 import { useLocalObservable } from 'mobx-react';
 import { Post, PostPreview } from '../types/post';
 import { fetchPosts, getPost } from '../routes/post';
@@ -25,17 +26,19 @@ const usePostStore = () => {
     fetchPosts: async () => {
       const { posts, offset } = await fetchPosts(store.postFeedOffset);
 
-      store.postFeedOffset = offset;
+      runInAction(() => {
+        store.postFeedOffset = offset;
 
-      if (offset === -1) {
-        // means we're done fetching i guess (or error?)
-        store.noMorePosts = true;
-      }
+        if (offset === -1) {
+          // means we're done fetching i guess (or error?)
+          store.noMorePosts = true;
+        }
 
-      store.postFeed.push(...posts);
+        store.postFeed.push(...posts);
+      });
     },
 
-    openPost: async (id: string) => {
+    openPost: action(async (id: string) => {
       const post: Post = store.posts[id];
 
       if (post) {
@@ -45,16 +48,18 @@ const usePostStore = () => {
 
       const fetched = await getPost(id);
 
-      if (fetched) {
-        store.posts[id] = fetched;
-      }
+      runInAction(() => {
+        if (fetched) {
+          store.posts[id] = fetched;
+        }
 
-      store.openModalPost = fetched;
-    },
+        store.openModalPost = fetched;
+      });
+    }),
 
-    closePost: () => {
+    closePost: action(() => {
       store.openModalPost = null;
-    },
+    }),
   }));
 
   return store;

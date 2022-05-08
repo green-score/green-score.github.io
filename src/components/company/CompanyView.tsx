@@ -1,16 +1,22 @@
 import React from 'react';
 import { Company } from '../../types/company';
-import ScoreIcon from '../score/ScoreIcon';
+import LoadingIndicator from '../common/LoadingIndicator';
+import ClickableScoreIcon from '../score/ClickableScoreIcon';
 
 type Props = {
   company: Company;
+  loading: boolean;
 };
 
-const CompanyView = ({ company }: Props) => {
+const CompanyView = ({ company, loading }: Props) => {
   return (
     <div className="company-view">
-      <ScoreIcon scorePreview={company.scoreVersion} factorID={company.factorID} />
-      <h1> { company.name } </h1>
+      <ClickableScoreIcon scorePreview={company.scoreVersion} factorID={company.factorID} />
+      <div className="d-flex flex-column">
+        <h1> { company.name } </h1>
+        <p> { company.description }</p>
+      </div>
+      { loading && <LoadingIndicator />}
     </div>
   );
 };

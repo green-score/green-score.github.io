@@ -17,7 +17,6 @@ export interface PostPreview {
   thumbnailSrc?: string;
   description: string; /** 150 characters max */
   live?: Date;
-  production: boolean;
 }
 
 /**

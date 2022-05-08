@@ -10,10 +10,10 @@
   align-items: center;
 }
 .score-icon.a {
-  background: $grade-color-a;
+  background: $primary-gradient;
 }
 .score-icon.b {
-  background: $grade-color-b;
+  background: $secondary-gradient;
 }
 .score-icon.c {
   background: $grade-color-c;
@@ -61,6 +61,11 @@
   justify-content: space-between;
   //height: 2rem;
 }
+
+.score-cascade-view.selected {
+  background: $primary-gradient;
+}
+
 
 .score-cascade-expand-button {
   right: 2rem;

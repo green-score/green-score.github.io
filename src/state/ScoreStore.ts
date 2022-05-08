@@ -1,3 +1,4 @@
+import { action } from 'mobx';
 import { useLocalObservable } from 'mobx-react';
 // import { ScoreCascade } from '../types/score';
 
@@ -19,26 +20,22 @@ const useScoreStore = () => {
     open: false,
     openScoreVersionID: undefined,
     openFactorID: undefined,
-
     // scoreVersionID: undefined,
     // factorID: undefined,
     // scoreCascade: undefined,
-    openScore: (scoreVersionID: string, factorID: string) => {
+    openScore: action((scoreVersionID: string, factorID: string) => {
       store.openScoreVersionID = scoreVersionID;
       store.openFactorID = factorID;
       store.open = true;
-      console.log('OPENED SCORE MODAL');
-    },
-    closeScore: () => {
+    }),
+    closeScore: action(() => {
       store.open = false;
       store.openScoreVersionID = undefined;
       store.openFactorID = undefined;
-    },
+    }),
   }));
 
   return store;
 };
 
 export default useScoreStore;
-
-export {};

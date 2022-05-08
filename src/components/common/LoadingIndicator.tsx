@@ -2,7 +2,7 @@ import React, { useEffect, useRef } from 'react';
 import { Spinner } from 'react-bootstrap';
 
 type Props = {
-  onView: () => void;
+  onView?: () => void;
 };
 
 const intersectionObserverOptions = {
@@ -15,7 +15,7 @@ const LoadingIndicator = ({ onView }: Props) => {
 
   useEffect(() => {
     const observer = new IntersectionObserver(
-      (e) => e[0].isIntersecting && onView(),
+      (e) => e[0].isIntersecting && onView && onView(),
       intersectionObserverOptions,
     );
 

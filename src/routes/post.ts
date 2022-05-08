@@ -1,5 +1,5 @@
 import { Post, PostPreview } from '../types/post';
-import { POSTFORM_SPREADSHEET_URL } from '../Env';
+import { postSpreadsheetURL } from '../Env';
 import loadRows, { SpreadSheetPost } from './spreadsheet';
 
 // In the real version, these won't be stored on the front-end.
@@ -8,7 +8,7 @@ const POSTS: Post[] = [];
 
 const spreadsheetItemToPost = async ({
   category, author, title, description, thumbnail, heading1, body1,
-  heading2, body2, heading3, body3, live, production, url,
+  heading2, body2, heading3, body3, live, url,
 }: SpreadSheetPost, i: number): Promise<Post> => {
   return {
     id: `${i}`,
@@ -18,7 +18,6 @@ const spreadsheetItemToPost = async ({
     thumbnailSrc: thumbnail.replace('open', 'uc'),
     live: live === undefined ? undefined : new Date(live),
     description,
-    production: production === 'yes',
     url,
     headings: [
       heading1,
@@ -34,7 +33,7 @@ const spreadsheetItemToPost = async ({
 };
 
 const loadPosts = async (): Promise<Post[]> => loadRows<SpreadSheetPost, Post>(
-  POSTFORM_SPREADSHEET_URL,
+  postSpreadsheetURL,
   spreadsheetItemToPost,
 );
 

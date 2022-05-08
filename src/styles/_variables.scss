@@ -50,6 +50,10 @@ $background-color: $primary-color-background;
 $gradient-to: $primary-color-lightest;
 $body-bg: $background-color;
 
+$secondary-background-color: $secondary-color-background;
+$secondary-gradient-to: $secondary-color-lightest;
+
 $primary-gradient: repeating-linear-gradient(338deg, rgba($gradient-to, 1), rgba($background-color, 1), rgba($background-color, 1), rgba($background-color, 1), rgba($gradient-to, 1) 200vh);
+$secondary-gradient: repeating-linear-gradient(338deg, rgba($secondary-gradient-to, 1), rgba($secondary-background-color, 1), rgba($secondary-background-color, 1), rgba($secondary-background-color, 1), rgba($secondary-gradient-to, 1) 200vh);
 
 // $modal-background

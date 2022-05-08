@@ -3,6 +3,7 @@ import { ScoreCascade } from '../../types/score';
 import { getScoreCascade } from '../../util/score';
 import ScoreCascadeView from './ScoreCascadeView';
 import ScoreCascadeDescription from './ScoreCascadeDescription';
+import LoadingIndicator from '../common/LoadingIndicator';
 
 type Props = {
   scoreVersionID: string;
@@ -12,11 +13,14 @@ type Props = {
 const ScoreView = ({ scoreVersionID, factorID }: Props) => {
   const [scoreCascade, setScoreCascade] = useState<ScoreCascade>();
   const [selectedScoreCascade, setSelectedScoreCascade] = useState<ScoreCascade>();
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
+    setLoading(true);
     getScoreCascade(scoreVersionID, factorID).then((s) => {
       setScoreCascade(s);
       setSelectedScoreCascade(s);
+      setLoading(false);
     });
   }, [scoreVersionID, factorID]);
 
@@ -31,10 +35,12 @@ const ScoreView = ({ scoreVersionID, factorID }: Props) => {
         {scoreCascade && (
           <ScoreCascadeView
             scoreCascade={scoreCascade}
+            selectedName={selectedScoreCascade?.name}
             setSelectedScoreCascade={setSelectedScoreCascade}
           />
         )}
       </div>
+      { loading && <LoadingIndicator /> }
     </div>
   );
 };

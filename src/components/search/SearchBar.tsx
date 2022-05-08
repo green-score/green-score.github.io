@@ -1,4 +1,4 @@
-import React, { ChangeEvent, MouseEvent, useState } from 'react';
+import React, { ChangeEvent, useState } from 'react';
 import { debounce } from 'lodash';
 import { observer } from 'mobx-react';
 
@@ -6,6 +6,7 @@ import useCompanyStore from '../../state/CompanyStore';
 import SearchBarResult from './SearchBarResult';
 import CompanyView from '../company/CompanyView';
 import Modal from '../common/Modal';
+import LoadingIndicator from '../common/LoadingIndicator';
 
 const SEARCH_DEBOUNCE_TIME = 800;
 
@@ -17,20 +18,20 @@ const SearchBar = observer(() => {
   const inputChange = (value: string) => {
     if (value === '') {
       store.clearResults().then(() => {
-        console.log('SUCCESSFULLY CLEARED SEARCH RESULTS');
+        // console.log('SUCCESSFULLY CLEARED SEARCH RESULTS');
       }).catch((error) => {
-        console.error('error in clearing search results...');
-        console.error(error);
+        // console.error('error in clearing search results...');
+        // console.error(error);
       });
     } else {
       store.fetchCompanies(value).then(() => {
-        console.log('SUCCESSFULLY LOADED SEARCH RESULTS');
+        // console.log('SUCCESSFULLY LOADED SEARCH RESULTS');
         // store.searchResults.forEach((c) => {
         //   console.log(c.name);
         // });
       }).catch((error) => {
-        console.error('error in fetching search results...');
-        console.error(error);
+        // console.error('error in fetching search results...');
+        // console.error(error);
       });
     }
   };
@@ -39,19 +40,19 @@ const SearchBar = observer(() => {
   // TODO const onSubmit = (e: FormEvent<HTMLInputElement>) => inputChange(e.target.searchInput.value);
 
   const onClick = (id: string) => {
-    console.log('click result');
     setCloseable(false);
     // e.preventDefault();
     store.openCompany(id).then(() => {
-      console.log('SUCCESSFULLY OPENED COMPANY');
-      console.log(store.openModalCompany);
+      // console.log('SUCCESSFULLY OPENED COMPANY');
+      // console.log(store.openModalCompany);
     }).catch((error) => {
-      console.error('error in opening company...');
-      console.error(error);
+      // console.error('error in opening company...');
+      // console.error(error);
     });
   };
 
-  const showResults = store.searchResults.length !== 0 && inputSelected;
+  const showResults = inputSelected &&
+    (store.fetchCompaniesIsLoading || store.searchResults.length !== 0);
 
   return (
     <div
@@ -67,11 +68,9 @@ const SearchBar = observer(() => {
           onChange={debounce(onChange, SEARCH_DEBOUNCE_TIME)}
           onSelect={() => {
             setInputSelected(true);
-            console.log('select');
           }}
           onBlur={() => {
             setInputSelected(false);
-            console.log('blur');
           }}
           // onBlur={() => alert('blur')}
           // onSelect={() => alert('select')}
@@ -82,7 +81,6 @@ const SearchBar = observer(() => {
             type="button"
             className="search-clear-button btn-close"
             aria-label="Search Clear"
-            onClick={() => alert('TODO')}
           />
         )}
         <i className="bi bi-search search-bar-icon" />
@@ -91,18 +89,17 @@ const SearchBar = observer(() => {
         {store.searchResults.map((c) => (
           <SearchBarResult companyPreview={c} onClick={() => onClick(c.id)} />
         ))}
+        {store.fetchCompaniesIsLoading && <LoadingIndicator />}
       </div>
       <Modal
         className="company-modal"
         show={store.openModalCompany !== null}
         onHide={() => {
-          // setInputSelected(false);
           closeable && store.closeCompany();
           setCloseable(true);
-          console.log('modal hide');
         }}
       >
-        <CompanyView company={store.openModalCompany!} />
+        <CompanyView company={store.openModalCompany!} loading={store.openCompanyIsLoading} />
       </Modal>
     </div>
   );

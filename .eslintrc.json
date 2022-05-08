@@ -69,6 +69,7 @@
     "react/state-in-constructor": "off",
     "react/static-property-placement": "off",
     "react-hooks/rules-of-hooks": "error",
+    "react/require-default-props": "off",
 
     "@typescript-eslint/ban-types": "off",
     "@typescript-eslint/naming-convention": [

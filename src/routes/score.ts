@@ -5,11 +5,7 @@ import loadRows, {
   SpreadsheetScoreValue,
   strToList,
 } from './spreadsheet';
-import {
-  FACTOR_SPREADSHEET_URL,
-  SCORE_SPREADSHEET_URL,
-  SCORE_VERSION_SPREADSHEET_URL,
-} from '../Env';
+import { factorSpreadsheetURL, scoreSpreadsheetURL, scoreVersionSpreadsheetURL } from '../Env';
 
 let SCORES: { [key: string]: Score } | null = null;
 let SCORE_VERSIONS: { [id: string]: ScoreVersion } | null = null;
@@ -37,7 +33,7 @@ const convertFactor = async (s: SpreadsheetFactor, i: number): Promise<Factor> =
 export const getScoreVersion = async (id: string): Promise<ScoreVersion> => {
   if (SCORE_VERSIONS === null) {
     SCORE_VERSIONS = {};
-    const scoreVersions = await loadRows(SCORE_VERSION_SPREADSHEET_URL, convertScoreVersion);
+    const scoreVersions = await loadRows(scoreVersionSpreadsheetURL, convertScoreVersion);
     console.log(scoreVersions);
     for (let i = 0; i < scoreVersions.length; i++) {
       const version = scoreVersions[i];
@@ -51,7 +47,7 @@ export const getScoreVersion = async (id: string): Promise<ScoreVersion> => {
 export const getFactor = async (id: string): Promise<Factor> => {
   if (FACTORS === null) {
     FACTORS = {};
-    const factors = await loadRows(FACTOR_SPREADSHEET_URL, convertFactor);
+    const factors = await loadRows(factorSpreadsheetURL, convertFactor);
     for (let i = 0; i < factors.length; i++) {
       const factor = factors[i];
       FACTORS[factor.id] = factor;
@@ -64,15 +60,12 @@ export const getFactor = async (id: string): Promise<Factor> => {
 export const getScore = async (key: string): Promise<Score> => {
   if (SCORES === null) {
     SCORES = {};
-    const scores = await loadRows(SCORE_SPREADSHEET_URL, convertScore);
+    const scores = await loadRows(scoreSpreadsheetURL, convertScore);
     for (let i = 0; i < scores.length; i++) {
       const score = scores[i];
       SCORES[score.key] = score;
     }
   }
-
-  console.log(SCORES);
-  console.log(key);
 
   return SCORES[key];
 };

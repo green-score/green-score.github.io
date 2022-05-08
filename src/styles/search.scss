@@ -16,7 +16,7 @@
   border: none;
   //position: absolute;
   display: flex;
-  justify-content: end;
+  justify-content: flex-end;
   align-items: center;
   margin-top: 1rem;
 }
@@ -71,6 +71,7 @@
 
 .search-bar-results {
   //position: absolute;
+  background: $primary-color-lightest;
   width: 100%;
   border: 2px solid $secondary-color-lightest;
   border-top: 0;

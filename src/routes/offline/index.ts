@@ -4,9 +4,8 @@ import testFactors from './factor.json';
 import testCompanies from './company.json';
 import testScoreVersions from './score_version.json';
 import {
-  COMPANY_SPREADSHEET_URL, FACTOR_SPREADSHEET_URL,
-  POSTFORM_SPREADSHEET_URL, SCORE_SPREADSHEET_URL,
-  SCORE_VERSION_SPREADSHEET_URL,
+  companySpreadsheetURL, factorSpreadsheetURL, postSpreadsheetURL,
+  scoreSpreadsheetURL, scoreVersionSpreadsheetURL,
 } from '../../Env';
 import { SpreadSheetPost, SpreadsheetType } from '../spreadsheet';
 import me from '../../images/me.png';
@@ -25,19 +24,19 @@ const insertPosts = (posts: SpreadSheetPost[]) => {
 
 export default <T extends SpreadsheetType>(url: string): T[] | undefined => {
   switch (url) {
-    case POSTFORM_SPREADSHEET_URL:
+    case postSpreadsheetURL:
       // @ts-ignore
       return insertPosts(testPosts);
-    case COMPANY_SPREADSHEET_URL:
+    case companySpreadsheetURL:
       // @ts-ignore
       return testCompanies;
-    case SCORE_VERSION_SPREADSHEET_URL:
+    case scoreVersionSpreadsheetURL:
       // @ts-ignore
       return testScoreVersions;
-    case SCORE_SPREADSHEET_URL:
+    case scoreSpreadsheetURL:
       // @ts-ignore
       return testScores;
-    case FACTOR_SPREADSHEET_URL:
+    case factorSpreadsheetURL:
       // @ts-ignore
       return testFactors;
     default:

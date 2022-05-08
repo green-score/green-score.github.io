@@ -1,39 +1,22 @@
 import React from 'react';
-import { observer } from 'mobx-react';
-import { ScoreVersion } from '../../types/score';
-import useScoreStore from '../../state/ScoreStore';
-import Modal from '../common/Modal';
-// import CompanyView from '../company/CompanyView';
-import ScoreView from './ScoreView';
 
 type Props = {
-  scorePreview: ScoreVersion;
-  factorID: string;
+  value: string;
+  dimension?: string;
+  onClick?: () => void;
 };
 
-const ScoreIcon = observer(({ scorePreview, factorID }: Props) => {
-  const store = useScoreStore();
-
-  return (
-    <>
-      <button
-        type="button"
-        className={`score-icon ${scorePreview.value.toLowerCase()}`}
-        onClick={() => store.openScore(scorePreview.id, factorID)}
-      >
-        <h1> { scorePreview.value.toUpperCase() } </h1>
-      </button>
-      <Modal
-        className="score-modal"
-        show={store.open}
-        onHide={store.closeScore}
-      >
-        {store.openScoreVersionID && store.openFactorID && (
-          <ScoreView scoreVersionID={store.openScoreVersionID} factorID={store.openFactorID} />
-        )}
-      </Modal>
-    </>
-  );
-});
+const ScoreIcon = ({ value, dimension = '6rem', onClick }: Props) => (
+  <button
+    type="button"
+    className={`score-icon ${value.toLowerCase()}`}
+    onClick={() => onClick && onClick()}
+    style={{ width: dimension, height: dimension, borderRadius: `calc(${dimension} / 2)` }}
+  >
+    <b style={{ fontSize: '4rem' }}>
+      <h1 style={{ marginTop: '0.5rem' }}> { value.toUpperCase() } </h1>
+    </b>
+  </button>
+);
 
 export default ScoreIcon;

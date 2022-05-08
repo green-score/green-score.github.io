@@ -1,3 +1,4 @@
+import { action, runInAction } from 'mobx';
 import { useLocalObservable } from 'mobx-react';
 import { fetchCompanyResults, getCompany } from '../routes/company';
 import { Company, CompanyPreview } from '../types/company';
@@ -9,6 +10,9 @@ export interface CompanyStore {
   searchTerm: string | null,
   noMoreResults: boolean,
   openModalCompany: Company | null,
+
+  fetchCompaniesIsLoading: boolean;
+  openCompanyIsLoading: boolean;
 
   fetchCompanies: (term: string) => Promise<void>;
   clearResults: () => Promise<void>;
@@ -25,8 +29,20 @@ const useCompanyStore = () => {
     noMoreResults: false,
     openModalCompany: null,
 
-    fetchCompanies: async (term: string) => {
+    fetchCompaniesIsLoading: false,
+    openCompanyIsLoading: false,
+
+    fetchCompanies: action(async (term: string) => {
+      console.log('starting fetch');
+      store.fetchCompaniesIsLoading = true;
+
       const companies = await fetchCompanyResults(term);
+
+      runInAction(() => {
+        store.searchResults = companies.map((c) => c.item);
+
+        store.fetchCompaniesIsLoading = false;
+      });
 
       // store.searchResultsOffset = offset;
 
@@ -36,15 +52,15 @@ const useCompanyStore = () => {
       // }
 
       // console.log(companies);
-      store.searchResults = companies.map((c) => c.item);
-    },
+      // store.searchResults = companies.map((c) => c.item);
+    }),
 
-    clearResults: async () => {
+    clearResults: action(async () => {
       store.openModalCompany = null;
       store.searchResults = [];
-    },
+    }),
 
-    openCompany: async (id: string) => {
+    openCompany: action(async (id: string) => {
       const company: Company = store.companies[id];
 
       if (company) {
@@ -52,18 +68,24 @@ const useCompanyStore = () => {
         return;
       }
 
+      store.openCompanyIsLoading = true;
+
       const fetched = await getCompany(id);
 
-      if (fetched) {
-        store.companies[id] = fetched;
-      }
+      runInAction(() => {
+        if (fetched) {
+          store.companies[id] = fetched;
+        }
 
-      store.openModalCompany = fetched;
-    },
+        store.openModalCompany = fetched;
 
-    closeCompany: () => {
+        store.openCompanyIsLoading = false;
+      });
+    }),
+
+    closeCompany: action(() => {
       store.openModalCompany = null;
-    },
+    }),
   }));
 
   return store;

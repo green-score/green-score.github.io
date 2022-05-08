@@ -1,16 +1,9 @@
 import Papa from 'papaparse';
-import {
-  COMPANY_SPREADSHEET_URL, FACTOR_SPREADSHEET_URL,
-  POSTFORM_SPREADSHEET_URL,
-  PRODUCTION, SCORE_SPREADSHEET_URL,
-  SCORE_VERSION_SPREADSHEET_URL,
-} from '../Env';
 import { parsedIsAfter } from '../util/time';
 import { TEST_DATA } from '../Constants';
 import getOfflineData from './offline';
 
 export interface SpreadsheetType {
-  production?: string; // if not in row, in development
   live?: string; // if not in row, always live
 }
 
@@ -60,8 +53,7 @@ export interface SpreadsheetScore extends SpreadsheetType {
  * @param row
  */
 const shouldParseRow = (row: SpreadsheetType) => (
-  (row.production?.toLowerCase() === 'yes') === PRODUCTION &&
-    (row.live === undefined || parsedIsAfter(row.live))
+  (row.live === undefined || parsedIsAfter(row.live))
 );
 
 const downloadSpreadsheet = async <T>(

@@ -12,7 +12,6 @@ const Modal = ({ className, show, onHide, children }: Props) => (
   <BootstrapModal
     className={className}
     show={show}
-    onBlur={() => console.log('modal on blur')}
     // onHide={() => console.log('modal on hide')}
     onHide={onHide}
   >
