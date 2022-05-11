@@ -4,7 +4,8 @@ Requires you to define these variables:
 `COMPANYFORM_SPREADSHEET_URL` (Spreadsheet URL of Company Post Form).
 */
 
-export const PRODUCTION = process.env.NODE_ENV === 'production';
+const PRETEND_PRODUCTION = true;
+export const PRODUCTION = process.env.NODE_ENV === 'production' || PRETEND_PRODUCTION;
 
 // TODO set as env vars
 const POSTFORM_SPREADSHEET_URL = 'https://docs.google.com/spreadsheets/d/1yk4RyZgIu2r8MgnvTejj0AAVNiCLRy9TQUJ1PkGcO-Q';

@@ -41,7 +41,7 @@
 }
 
 .post-view-subtitle {
-
+  color: $ternary-font-color;
 }
 
 .post-view-image {
@@ -49,9 +49,18 @@
 }
 
 .post-view-sub-image {
-
+  color: $ternary-font-color;
 }
 
 .post-view-body {
+  margin: 1rem;
+  text-align: start;
+}
 
+.post-view-header {
+
+}
+
+.post-view-section {
+  white-space: pre-wrap;
 }
